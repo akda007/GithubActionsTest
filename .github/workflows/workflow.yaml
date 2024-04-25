@@ -1,0 +1,21 @@
+name: {Deploy}
+on: [{push}]
+
+jobs:
+  continuos-integration:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        mongodb-version: [4.2]
+    
+    steps:
+      - uses: actions/checkout@v3
+      - name: Using node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 21.x
+      
+      - name: run install, build and test
+        run: | 
+          npm run build
+          npm run deploy
